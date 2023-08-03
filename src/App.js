@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import './App.css';
+import TestCom from './component/TestComp';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header"> 
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React And Jenkins Test
-        </a>
-      </header>
-    </div>
-  );
+  return (<div className='root'>
+    {/* <Router>
+        <Routes>
+            <Route path="/testPage" element={<TestCom />} />
+            <Route path='/*' element={<h2><br/>잘못된 접근입니다.</h2>} />
+        </Routes>
+      </Router> */}
+            <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<TestCom />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>);
 }
 
 export default App;
