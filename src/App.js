@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import TestCom from "./component/TestComp";
+// import TestCom from "./component/TestComp";
+import UserBoard from "./component/UserBoard";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       </Router> */}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<TestCom />}></Route>
+          <Route path="/" element={<UserBoard />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
