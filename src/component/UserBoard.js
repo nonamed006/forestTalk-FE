@@ -83,13 +83,13 @@ export default function UserBoard() {
 
             const updatedDataSec = dataSec.map((boardItem, index) => {
 
-              console.log(boardData[index].test);
+              console.log(boardData[index].bseq);
 
               return {
                 key: index,
                 name: '로시',
                 age: 1, // 예시로 고정된 값을 사용
-                address: boardData[index].test, // 예시로 고정된 값을 사용
+                address: boardData[index].btitle, // 예시로 고정된 값을 사용
                 tags: ['강아지', '고양이'], // 예시로 고정된 값을 사용
               };
             });
