@@ -10,51 +10,67 @@ import { PORT } from '../set';
 
 const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: '순번',
+      dataIndex: 'bSeq',
+      key: 'bSeq',
+      width: '10%',
+    },
+    {
+      title: '작성자',
+      dataIndex: 'uSeq',
+      key: 'uSeq',
+    },
+    {
+      title: '제목',
+      dataIndex: 'bTitle',
+      key: 'bTitle',
+      width: '40%',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: '조회수',
+      dataIndex: 'bCount',
+      key: 'bCount',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: '작성일',
+      dataIndex: 'CDT',
+      key: 'CDT',
     },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
-    },
+
+    //<나중에 사용할 태그 형식>
+    // {
+    //   title: 'Tags',
+    //   key: 'tags',
+    //   dataIndex: 'tags',
+    //   render: (_, { tags }) => (
+    //     <>
+    //       {tags.map((tag) => {
+    //         let color = tag.length > 5 ? 'geekblue' : 'green';
+    //         if (tag === 'loser') {
+    //           color = 'volcano';
+    //         }
+    //         return (
+    //           <Tag color={color} key={tag}>
+    //             {tag.toUpperCase()}
+    //           </Tag>
+    //         );
+    //       })}
+    //     </>
+    //   ),
+    // },
+
+    //<나중에 사용할 Space 형식>
+    // {
+    //   title: 'Action',
+    //   key: 'action',
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       <a>Invite {record.name}</a>
+    //       <a>Delete</a>
+    //     </Space>
+    //   ),
+    // },
   ];
 
 export default function UserBoard() {
@@ -63,11 +79,14 @@ export default function UserBoard() {
 
     let dataSec = [
       {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
+        key: 0,
+        bSeq: 0,
+        uSeq: 0,
+        bTitle: '',
+        bCount: 0,
+        CDT: '',
+    
+        // tags: ['nice', 'developer'],
       },
     ];
 
@@ -87,10 +106,13 @@ export default function UserBoard() {
 
               return {
                 key: index,
-                name: '로시',
-                age: 1, // 예시로 고정된 값을 사용
-                address: boardData[index].btitle, // 예시로 고정된 값을 사용
-                tags: ['강아지', '고양이'], // 예시로 고정된 값을 사용
+                bSeq: boardData[index].bseq,
+                uSeq: boardData[index].useq,
+                bTitle: boardData[index].btitle,
+                bCount: boardData[index].bcount,
+                CDT: boardData[index].cdt,
+                
+                // tags: ['강아지', '고양이'], 
               };
             });
 
