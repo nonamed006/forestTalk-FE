@@ -1,11 +1,93 @@
-import React from 'react';
+import React from "react";
+import { Button, Checkbox, Form, Input } from "antd";
+import { PORT } from "../../set";
 
-const LoginForm = () => {
-	return (
-		<div style={{width: 100, height: 100, backgroundColor: 'yellow'}}>
-			loginForm
-		</div>
-	);
+const onFinish = (values) => {
+  fetch(`${PORT}/login/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log("Server response:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  console.log("Success:", values);
 };
+const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
+};
+const LoginForm = () => (
+  <Form
+    name="basic"
+    labelCol={{
+      span: 8,
+    }}
+    wrapperCol={{
+      span: 16,
+    }}
+    style={{
+      maxWidth: 600,
+    }}
+    initialValues={{
+      remember: true,
+    }}
+    onFinish={onFinish}
+    onFinishFailed={onFinishFailed}
+    autoComplete="off"
+  >
+    <Form.Item
+      label="Username"
+      name="username"
+      rules={[
+        {
+          required: true,
+          message: "아이디를 입력해 주세요!",
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
 
+    <Form.Item
+      label="Password"
+      name="password"
+      rules={[
+        {
+          required: true,
+          message: "패스워드를 입력해 주세요!",
+        },
+      ]}
+    >
+      <Input.Password />
+    </Form.Item>
+
+    <Form.Item
+      name="remember"
+      valuePropName="checked"
+      wrapperCol={{
+        offset: 8,
+        span: 16,
+      }}
+    >
+      <Checkbox>Remember me</Checkbox>
+    </Form.Item>
+
+    <Form.Item
+      wrapperCol={{
+        offset: 8,
+        span: 16,
+      }}
+    >
+      <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
+    </Form.Item>
+  </Form>
+);
 export default LoginForm;
