@@ -2,6 +2,7 @@ import FileBoard from "../board/FileBoard";
 import UserBoard from "../board/UserBoard";
 import LoginForm from "../user/LoginForm";
 import SignupForm from "../user/SignupForm";
+import RegistBoard from "../board/RegistBoard";
 
 export const pathInfo = [
   { board: ["userboard", "fileBoard"] },
@@ -21,6 +22,9 @@ export const routeInfo = (path) => {
     case "/signup":
       console.log("path", path);
       return <SignupForm />;
+	case '/board/registboard':
+	  console.log('path', path);
+	  return <RegistBoard />
     default:
       return <div style={{ backgroundColor: "white" }}></div>;
   }
