@@ -1,21 +1,20 @@
-import LoginForm from "../login/LoginForm";
-import LoginTest from "../login/LoginTest";
+import LoginForm from "../user/LoginForm";
+import SignupForm from "../user/SignupForm";
 
 export const pathInfo = [
-	{ board: ['all-board', 'LoginTest', 'List'] },
-	{ main: ['main1', 'main2'] }
-]
+  { board: ["login", "Signup", "List"] },
+  { main: ["main1", "main2"] },
+];
 
 export const routeInfo = (path) => {
-	switch (path) {
-		case '/board/all-board':
-			console.log('path', path);
-			return <LoginForm />
-		case '/board/LoginTest':
-			console.log('path', path);
-			return <LoginTest />
-		default:
-			return <div style={{backgroundColor: 'white',}}></div>
-
-	}
-}
+  switch (path) {
+    case "/board/login":
+      console.log("path", path);
+      return <LoginForm />;
+    case "/board/Signup":
+      console.log("path", path);
+      return <SignupForm />;
+    default:
+      return <div style={{ backgroundColor: "white" }}></div>;
+  }
+};
