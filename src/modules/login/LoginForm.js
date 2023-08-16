@@ -1,7 +1,22 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
+import { PORT } from "../../set";
 
 const onFinish = (values) => {
+  fetch(`${PORT}/login/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log("Server response:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
   console.log("Success:", values);
 };
 const onFinishFailed = (errorInfo) => {
