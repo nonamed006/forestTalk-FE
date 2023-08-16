@@ -1,21 +1,12 @@
 import FileBoard from "../board/FileBoard";
 import UserBoard from "../board/UserBoard";
 import LoginForm from "../user/LoginForm";
-<<<<<<< HEAD
 import SignupForm from "../user/SignupForm";
 
 export const pathInfo = [
   { board: ["userboard", "fileBoard"] },
   { main: ["main1", "main2"] },
 ];
-=======
-import LoginTest from "../user/LoginTest";
-
-export const pathInfo = [
-	{ board: ['all-board', 'LoginTest', 'List', 'fileBoard', 'userboard'] },
-	{ main: ['main1', 'main2'] }
-]
->>>>>>> 276b52111322f27998a6a3294c4189224a43c60a
 
 export const routeInfo = (path) => {
   switch (path) {
