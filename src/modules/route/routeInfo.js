@@ -6,7 +6,7 @@ import RegistBoard from "../board/RegistBoard";
 import FileBoardDetail from "../board/FileBoardDetail";
 
 export const pathInfo = [
-  { board: ["userboard", "fileBoard"] },
+  { board: ["userboard", "fileBoard", "detail"] },
   { main: ["main1", "main2"] },
 ];
 
@@ -26,7 +26,7 @@ export const routeInfo = (path) => {
     case "/board/registboard":
       console.log("path", path);
       return <RegistBoard />;
-    case "/board/:boardId":
+    case "/board/detail":
       console.log("path", path);
       return <FileBoardDetail />;
     default:

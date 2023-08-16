@@ -46,7 +46,9 @@ const FileBoard = () => {
       dataIndex: "btitle",
       key: "btitle",
       width: "40%",
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => (
+        <Link to={`/board/detail/${record.bseq}`}>{text}</Link>
+      ),
     },
     {
       title: "조회수",
@@ -65,13 +67,6 @@ const FileBoard = () => {
       <Table
         columns={columns}
         dataSource={items}
-        onRow={(items) => {
-          return {
-            onClick: () => {
-              return <Link to={`/board/${items.bseq}`} />
-            }
-          }
-        }}
       />
     </div>
   );
