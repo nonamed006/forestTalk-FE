@@ -9,24 +9,25 @@ const items1 = ['1', '2', '3'].map((key) => ({
   key,
   label: `nav ${key}`,
 }));
+let breadTitle = ['Home', 'main'];
 
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
 
+// const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
 
-  const key = String(index + 1);
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
+//   const key = String(index + 1);
+//   return {
+//     key: `sub${key}`,
+//     icon: React.createElement(icon),
+//     label: `subnav ${key}`,
+//     children: new Array(4).fill(null).map((_, j) => {
+//       const subKey = index * 4 + j + 1;
+//       return {
+//         key: subKey,
+//         label: `option${subKey}`,
+//       };
+//     }),
+//   };
+// });
 
 
 // path = board/all-board
@@ -50,8 +51,8 @@ const getItem = () => {
 const HeaderS = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  
-  console.log('123',location);
+
+  console.log('123', location);
 
   const {
     token: { colorBgContainer },
@@ -83,12 +84,13 @@ const HeaderS = (props) => {
               borderRight: 0,
             }}
             items={getItem()}
-            onClick={(a) => { 
-              const path_ = a.keyPath.reverse();
-              const path =  '/' + path_.join('/');
+            onClick={(a) => {
+              breadTitle = a.keyPath.reverse();
+              const path = '/' + breadTitle.join('/');
               console.log('aazz', path);
+              console.log('qweqwe', breadTitle);
               navigate(path); // 경로 변경
-             }}
+            }}
           />
         </Sider>
         <Layout
@@ -96,25 +98,19 @@ const HeaderS = (props) => {
             padding: '0 24px 24px',
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+          <Breadcrumb style={{ margin: '16px 0' }} 
+            items={[{ title: breadTitle[0] }, { title: breadTitle[1] }]} 
+          />
 
           <Content
             style={{
               padding: 24,
               margin: 0,
               minHeight: 280,
-              backgroundColor:'white'
+              backgroundColor: 'white'
             }}
           >
-           {routeInfo(location.pathname)}
+            {routeInfo(location.pathname)}
           </Content>
         </Layout>
       </Layout>
