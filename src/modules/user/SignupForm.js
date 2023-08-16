@@ -1,52 +1,6 @@
 import React, { useState } from "react";
-import {
-  AutoComplete,
-  Button,
-  Cascader,
-  DatePicker,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-} from "antd";
+import { Button, DatePicker, Form, Input, Select, Checkbox } from "antd";
 const { Option } = Select;
-const residences = [
-  {
-    value: "zhejiang",
-    label: "Zhejiang",
-    children: [
-      {
-        value: "hangzhou",
-        label: "Hangzhou",
-        children: [
-          {
-            value: "xihu",
-            label: "West Lake",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: "jiangsu",
-    label: "Jiangsu",
-    children: [
-      {
-        value: "nanjing",
-        label: "Nanjing",
-        children: [
-          {
-            value: "zhonghuamen",
-            label: "Zhong Hua Men",
-          },
-        ],
-      },
-    ],
-  },
-];
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -82,30 +36,6 @@ const SignupForm = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
   const [autoCompleteResult, setAutoCompleteResult] = useState([]);
   const onWebsiteChange = (value) => {
     if (!value) {
@@ -137,30 +67,50 @@ const SignupForm = () => {
     >
       <Form.Item
         name="email"
-        label="E-mail"
+        label="이메일"
         rules={[
           {
             type: "email",
-            message: "The input is not valid E-mail!",
+            message: "유효하지 않은 이메일 입니다!",
           },
           {
             required: true,
-            message: "Please input your E-mail!",
+            message: "이메일을 입력 해 주세요!",
           },
         ]}
       >
         <Input />
       </Form.Item>
-      <Form.Item name="birthday" label="BirthDay">
+
+      <Form.Item
+        name="username"
+        label="이름"
+        tooltip="이름을 작성해 주세요!"
+        rules={[
+          {
+            required: true,
+            message: "본명을 입력해 주세요!",
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="birthday"
+        label="생일"
+        rules={[{ required: true, message: "생일을 입력해 주세요!" }]}
+      >
         <DatePicker />
       </Form.Item>
       <Form.Item
         name="password"
-        label="Password"
+        label="비밀번호"
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: "비밀번호를 입력해 주세요!",
           },
         ]}
         hasFeedback
@@ -170,13 +120,13 @@ const SignupForm = () => {
 
       <Form.Item
         name="confirm"
-        label="Confirm Password"
+        label="비밀번호 확인"
         dependencies={["password"]}
         hasFeedback
         rules={[
           {
             required: true,
-            message: "Please confirm your password!",
+            message: "비밀번호 확인을 입력해 주세요!",
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
@@ -184,7 +134,7 @@ const SignupForm = () => {
                 return Promise.resolve();
               }
               return Promise.reject(
-                new Error("The new password that you entered do not match!")
+                new Error("입력한 비밀번호와 일치하지 않습니다!")
               );
             },
           }),
@@ -195,141 +145,17 @@ const SignupForm = () => {
 
       <Form.Item
         name="nickname"
-        label="Nickname"
-        tooltip="What do you want others to call you?"
+        label="닉네임"
+        tooltip="상대방이 어떻게 불러줬으면 하나요?"
         rules={[
           {
             required: true,
-            message: "Please input your nickname!",
+            message: "닉네임을 입력 해 주세요!",
             whitespace: true,
           },
         ]}
       >
         <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="residence"
-        label="Habitual Residence"
-        rules={[
-          {
-            type: "array",
-            required: true,
-            message: "Please select your habitual residence!",
-          },
-        ]}
-      >
-        <Cascader options={residences} />
-      </Form.Item>
-
-      <Form.Item
-        name="phone"
-        label="Phone Number"
-        rules={[
-          {
-            required: true,
-            message: "Please input your phone number!",
-          },
-        ]}
-      >
-        <Input
-          addonBefore={prefixSelector}
-          style={{
-            width: "100%",
-          }}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="donation"
-        label="Donation"
-        rules={[
-          {
-            required: true,
-            message: "Please input donation amount!",
-          },
-        ]}
-      >
-        <InputNumber
-          addonAfter={suffixSelector}
-          style={{
-            width: "100%",
-          }}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="website"
-        label="Website"
-        rules={[
-          {
-            required: true,
-            message: "Please input website!",
-          },
-        ]}
-      >
-        <AutoComplete
-          options={websiteOptions}
-          onChange={onWebsiteChange}
-          placeholder="website"
-        >
-          <Input />
-        </AutoComplete>
-      </Form.Item>
-
-      <Form.Item
-        name="intro"
-        label="Intro"
-        rules={[
-          {
-            required: true,
-            message: "Please input Intro",
-          },
-        ]}
-      >
-        <Input.TextArea showCount maxLength={100} />
-      </Form.Item>
-
-      <Form.Item
-        name="gender"
-        label="Gender"
-        rules={[
-          {
-            required: true,
-            message: "Please select gender!",
-          },
-        ]}
-      >
-        <Select placeholder="select your gender">
-          <Option value="male">Male</Option>
-          <Option value="female">Female</Option>
-          <Option value="other">Other</Option>
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        label="Captcha"
-        extra="We must make sure that your are a human."
-      >
-        <Row gutter={8}>
-          <Col span={12}>
-            <Form.Item
-              name="captcha"
-              noStyle
-              rules={[
-                {
-                  required: true,
-                  message: "Please input the captcha you got!",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Button>Get captcha</Button>
-          </Col>
-        </Row>
       </Form.Item>
 
       <Form.Item
@@ -340,14 +166,18 @@ const SignupForm = () => {
             validator: (_, value) =>
               value
                 ? Promise.resolve()
-                : Promise.reject(new Error("Should accept agreement")),
+                : Promise.reject(new Error("이용약관에 동의 해 주세요!")),
           },
         ]}
         {...tailFormItemLayout}
-      ></Form.Item>
+      >
+        <Checkbox>
+          <a href="/agreement">이용약관</a>을 읽고 동의하겠습니다.
+        </Checkbox>
+      </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
-          Register
+          회원가입
         </Button>
       </Form.Item>
     </Form>
