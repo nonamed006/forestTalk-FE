@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input, Select, Button } from 'antd';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 import { PORT } from '../../set';
 import './UserBoard.css';
@@ -27,7 +27,9 @@ const columns = [
     dataIndex: 'bTitle',
     key: 'bTitle',
     width: '40%',
-    render: (text) => <a>{text}</a>,
+    render: (text, record) => (
+      <Link to={`/board/detailboard?bSeq=${record.bSeq}`}>{text}</Link>
+  ),
   },
   {
     title: '조회수',
@@ -57,9 +59,10 @@ const handleChange = (value) => {
   //글 작성하기
 const navigate = useNavigate();
 
+// 버튼 클릭 시 '/registboard' 페이지로 이동
 const handleButtonClick = () => {
   console.log("button clicked!");
-  navigate('/board/registboard'); // 버튼 클릭 시 '/about' 페이지로 이동
+  navigate('/board/registboard'); 
 };
 
   useEffect(() => {
@@ -91,6 +94,7 @@ const handleButtonClick = () => {
       });
   }, []);
 
+  //페이징 사이즈 설정
   const [pageSize, setPageSize] = useState(5);
   const [bottom, setBottom] = useState('bottomCenter');
 
