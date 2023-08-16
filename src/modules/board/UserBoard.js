@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input, Select, Button } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { PORT } from '../../set';
 import './UserBoard.css';
-
+import '../../App';
 
 /*
  회원 게시판 화면
@@ -39,7 +41,11 @@ const columns = [
   },
 ];
 
-//검색 누르면 검색 텍스트 콘솔에 띄우기
+export default function UserBoard() {
+  // const [boardData, setBoardData] = useState([]);/
+  const [boardDataSec, setBoardDataSec] = useState([]);
+
+  //검색 누르면 검색 텍스트 콘솔에 띄우기
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
 
@@ -48,15 +54,13 @@ const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
 
-//글 작성하기
-const registBoard = () =>{
-  
-}
+  //글 작성하기
+const navigate = useNavigate();
 
-
-export default function UserBoard() {
-  // const [boardData, setBoardData] = useState([]);/
-  const [boardDataSec, setBoardDataSec] = useState([]);
+const handleButtonClick = () => {
+  console.log("button clicked!");
+  navigate('/board/registboard'); // 버튼 클릭 시 '/about' 페이지로 이동
+};
 
   useEffect(() => {
     fetch(`${PORT}/userBoard/selectAllBoard`, {
@@ -98,7 +102,7 @@ export default function UserBoard() {
           <h1>회원 게시판 </h1>
         </li>
         <li className="registButton">
-          <Button onClick={registBoard}>글 작성하기</Button>
+          <Button onClick={handleButtonClick}>글 작성하기</Button>
         </li>
         <li>
           <Table
