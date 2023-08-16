@@ -5,7 +5,6 @@ import LoginTest from "../login/LoginTest";
 
 export const pathInfo = [
 	{ board: ['all-board', 'LoginTest', 'List', 'fileBoard'] },
-	{ board: ['all-board', 'LoginTest', 'List' ,'userboard'] },
 	{ main: ['main1', 'main2'] }
 ]
 
