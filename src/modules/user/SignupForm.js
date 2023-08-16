@@ -3,6 +3,7 @@ import {
   AutoComplete,
   Button,
   Cascader,
+  DatePicker,
   Checkbox,
   Col,
   Form,
@@ -150,7 +151,9 @@ const SignupForm = () => {
       >
         <Input />
       </Form.Item>
-
+      <Form.Item name="birthday" label="BirthDay">
+        <DatePicker />
+      </Form.Item>
       <Form.Item
         name="password"
         label="Password"
