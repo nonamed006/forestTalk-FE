@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Space, Table, Tag } from "antd";
 import { PORT } from "../../set";
+import { Link } from "react-router-dom";
 
 /*
  자료 게시판 화면
@@ -64,6 +65,13 @@ const FileBoard = () => {
       <Table
         columns={columns}
         dataSource={items}
+        onRow={(items) => {
+          return {
+            onClick: () => {
+              return <Link to={`/board/${items.bseq}`} />
+            }
+          }
+        }}
       />
     </div>
   );
