@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Space, Table, Tag } from 'antd';
-import { PORT } from '../set';
+import { PORT } from '../../set';
 
 /*
  회원 게시판 화면

@@ -5,9 +5,9 @@ import { useLocation, useNavigate, useRoutes } from 'react-router-dom';
 import { pathInfo, routeInfo } from './routeInfo';
 
 const { Header, Content, Sider } = Layout;
-const items1 = ['1', '2', '3'].map((key) => ({
+const items1 = ['로그인', '회원가입'].map((key) => ({
   key,
-  label: `nav ${key}`,
+  label: `${key}`,
 }));
 let breadTitle = ['Home', 'main'];
 
@@ -63,10 +63,12 @@ const HeaderS = (props) => {
         style={{
           display: 'flex',
           alignItems: 'center',
+          flexDirection: 'row-reverse'
         }}
       >
         <div className="demo-logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['']} items={items1} 
+        />
       </Header>
       <Layout>
         <Sider
@@ -98,8 +100,8 @@ const HeaderS = (props) => {
             padding: '0 24px 24px',
           }}
         >
-          <Breadcrumb style={{ margin: '16px 0' }} 
-            items={[{ title: breadTitle[0] }, { title: breadTitle[1] }]} 
+          <Breadcrumb style={{ margin: '16px 0' }}
+            items={[{ title: breadTitle[0] }, { title: breadTitle[1] }]}
           />
 
           <Content
