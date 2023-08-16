@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Space, Table, Tag } from "antd";
 import { PORT } from "../../set";
+import { Link } from "react-router-dom";
 
 /*
  자료 게시판 화면
@@ -45,7 +46,9 @@ const FileBoard = () => {
       dataIndex: "btitle",
       key: "btitle",
       width: "40%",
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => (
+        <Link to={`/board/detail/${record.bseq}`}>{text}</Link>
+      ),
     },
     {
       title: "조회수",
