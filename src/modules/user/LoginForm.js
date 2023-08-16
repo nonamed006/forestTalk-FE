@@ -3,21 +3,26 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { PORT } from "../../set";
 
 const onFinish = (values) => {
-  fetch(`${PORT}/login/login`, {
+  fetch(`${PORT}/user/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(values),
   })
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => {
       console.log("Server response:", data);
+      if (data.resultMsg === "certified") {
+        alert("로그인 성공");
+      } else {
+        alert("로그인 실패");
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert("에러가 발생했습니다.");
     });
-  console.log("Success:", values);
 };
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
