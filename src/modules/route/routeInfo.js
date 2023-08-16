@@ -1,11 +1,10 @@
 import FileBoard from "../board/FileBoard";
 import UserBoard from "../board/UserBoard";
-import LoginForm from "../login/LoginForm";
-import LoginTest from "../login/LoginTest";
+import LoginForm from "../user/LoginForm";
+import LoginTest from "../user/LoginTest";
 
 export const pathInfo = [
-	{ board: ['all-board', 'LoginTest', 'List', 'fileBoard'] },
-	{ board: ['all-board', 'LoginTest', 'List' ,'userboard'] },
+	{ board: ['all-board', 'LoginTest', 'List', 'fileBoard', 'userboard'] },
 	{ main: ['main1', 'main2'] }
 ]
 
