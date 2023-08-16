@@ -10,7 +10,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<HeaderS />}/>
-          <Route path="/RegistBoard" element={<HeaderS />}/>
           {/* <Route path="/" element={<UserBoard />}></Route> */}
         </Routes>
       </BrowserRouter>
