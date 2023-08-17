@@ -63,6 +63,7 @@ const navigate = useNavigate();
 const handleButtonClick = () => {
   console.log("button clicked!");
   navigate('/board/registboard'); 
+
 };
 
   useEffect(() => {
@@ -73,17 +74,17 @@ const handleButtonClick = () => {
       .then((data) => {
         const boardData = data.data;  // 데이터를 상태에 설정, 첫번째 data는 response의 data, 두번째 data는 Spring ApiResult 클래스의 List 이름이 data
 
-        console.log("데이터 리스트" + boardData);
+        console.log("데이터 리스트 bSeq : " + boardData[0].bSeq);
 
         const updatedDataSec = boardData.map((boardItem, index) => {
 
           return {
             key: index,
-            bSeq: boardItem.bseq,
-            uSeq: boardItem.useq,
-            bTitle: boardItem.btitle,
-            bCount: boardItem.bcount,
-            CDT: boardItem.cdt,
+            bSeq: boardItem.bSeq,
+            uSeq: boardItem.uSeq,
+            bTitle: boardItem.bTitle,
+            bCount: boardItem.bCount,
+            CDT: boardItem.cdt  ,
           };
 
 
