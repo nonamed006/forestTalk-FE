@@ -35,20 +35,14 @@ const RegistFileBoard = () => {
     // values 객체를 서버로 전송하는 fetch 호출
     fetch(`${PORT}/board/registerFileBoard`, {
       method: "post", // POST 요청으로 변경 (또는 필요한 HTTP 메서드로 변경)
-      headers: {
-        "Content-Type": "application/json", // 전송할 데이터의 형식을 지정
-      },
-      body: JSON.stringify({
-        bTitle: values.bTitle,
-        bContents: values.bContents,
-      }), // values 객체를 JSON 문자열로 변환하여 전송
+      body: values,
     })
       .then((res) => res.json())
       .then((data) => {
         console.log("등록 Status : " + data.result);
         let result = data.result;
         if (result === "SUCCESS") {
-          navigate("/board/fileBoard");
+          //navigate("/board/fileBoard");
         }
       });
   };
@@ -108,7 +102,7 @@ const RegistFileBoard = () => {
               <Button icon={<UploadOutlined />}>파일 선택</Button>
             </Upload>
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" >
             작성
           </Button>
         </Form.Item>

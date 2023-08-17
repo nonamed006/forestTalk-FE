@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Button, DatePicker, Form, Input, Select, Checkbox } from "antd";
 import { PORT } from "../../set";
+import moment from "moment";
 
 const { Option } = Select;
+
+const dateFormat = "YYYY/MM/DD";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -34,8 +37,13 @@ const tailFormItemLayout = {
   },
 };
 const SignupForm = () => {
+  const [uidValidateStatus, setUidValidateStatus] = useState(null);
+  const [uidHelp, setUidHelp] = useState(null);
   const [form] = Form.useForm();
   const onFinish = (values) => {
+    const { ubirth } = values;
+    const dateString = moment(ubirth).format("YY-MM-DD"); // moment 객체를 yy-mm-dd 형식의 문자열로 변환
+    values.ubirth = dateString; // values 객체에 dateString 변수 추가
     fetch(`${PORT}/user/signup`, {
       method: "POST",
       headers: {
@@ -49,6 +57,7 @@ const SignupForm = () => {
         console.log("Server response:", data);
         if (data.resultMsg === "certified") {
           alert("회원가입 성공");
+          window.location.href = "/login";
         } else {
           alert("회원가입 실패");
         }
@@ -106,10 +115,41 @@ const SignupForm = () => {
       <Form.Item
         name="uid"
         label="아이디"
+        hasFeedback
+        validateStatus={uidValidateStatus}
+        help={uidHelp}
         rules={[
           {
             required: true,
             message: "아이디를 입력해 주세요!",
+          },
+          {
+            validator: async (_, value) => {
+              if (!value) {
+                return Promise.resolve();
+              }
+              try {
+                const response = await fetch(
+                  `${PORT}/user/checkid?uid=${value}`
+                );
+                const data = await response.json();
+                console.log(data);
+                if (data.resultMsg === "certified") {
+                  setUidValidateStatus("warning");
+                  setUidHelp("이미 사용 중인 아이디입니다.");
+                  return Promise.reject();
+                } else {
+                  setUidValidateStatus("success");
+                  setUidHelp(null);
+                  return Promise.resolve();
+                }
+              } catch (error) {
+                console.error(error);
+                setUidValidateStatus("warning");
+                setUidHelp("아이디 중복 체크에 실패했습니다.");
+                return Promise.reject();
+              }
+            },
           },
         ]}
       >
