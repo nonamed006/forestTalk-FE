@@ -38,8 +38,8 @@ const columns = [
   },
   {
     title: '작성일',
-    dataIndex: 'CDT',
-    key: 'CDT',
+    dataIndex: 'cdt',
+    key: 'cdt',
   },
 ];
 
@@ -47,9 +47,40 @@ export default function UserBoard() {
   // const [boardData, setBoardData] = useState([]);/
   const [boardDataSec, setBoardDataSec] = useState([]);
 
-  //검색 누르면 검색 텍스트 콘솔에 띄우기
+  //검색 하기
 const { Search } = Input;
-const onSearch = (value) => console.log(value);
+const onSearch = (value) =>{
+  console.log(value);
+
+  // 검색어(value)에 따른 리스트들 가져오기
+    fetch(`${PORT}/userBoard/searchByText?Text=${value}`, {
+      method: "get",
+    })
+      .then((res) => res.json())  // 데이터를 텍스트로 추출
+      .then((data) => {
+        const boardData = data.data;  // 데이터를 상태에 설정, 첫번째 data는 response의 data, 두번째 data는 Spring ApiResult 클래스의 List 이름이 data
+
+        console.log("데이터 리스트 bSeq : " + boardData[0].cdt);
+
+        const updatedDataSec = boardData.map((boardItem, index) => {
+
+          return {
+            key: index,
+            bSeq: boardItem.bseq,
+            uSeq: boardItem.useq,
+            bTitle: boardItem.btitle,
+            bCount: boardItem.bcount,
+            cdt: boardItem.cdt  ,
+          };
+
+
+        });
+
+        setBoardDataSec(updatedDataSec);
+
+      }); 
+
+} 
 
 //셀렉트 박스 체인지 확인
 const handleChange = (value) => {
@@ -74,17 +105,17 @@ const handleButtonClick = () => {
       .then((data) => {
         const boardData = data.data;  // 데이터를 상태에 설정, 첫번째 data는 response의 data, 두번째 data는 Spring ApiResult 클래스의 List 이름이 data
 
-        console.log("데이터 리스트 bSeq : " + boardData[0].bSeq);
+        console.log("데이터 리스트 bSeq : " + boardData[0].cdt);
 
         const updatedDataSec = boardData.map((boardItem, index) => {
 
           return {
             key: index,
-            bSeq: boardItem.bSeq,
-            uSeq: boardItem.uSeq,
-            bTitle: boardItem.bTitle,
-            bCount: boardItem.bCount,
-            CDT: boardItem.cdt  ,
+            bSeq: boardItem.bseq,
+            uSeq: boardItem.useq,
+            bTitle: boardItem.btitle,
+            bCount: boardItem.bcount,
+            cdt: boardItem.cdt  ,
           };
 
 
