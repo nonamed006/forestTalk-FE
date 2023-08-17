@@ -41,7 +41,7 @@ const FileBoard = () => {
       .then((response) => response.json())
       .then((data) => {
         data.data.map((item) => {
-          item.key = item.bSeq;
+          item.key = item.bseq;
           fileItems.push(item);
           setItems(fileItems);
         });
@@ -51,7 +51,7 @@ const FileBoard = () => {
   const columns = [
     {
       title: "순번",
-      dataIndex: "bSeq",
+      dataIndex: "bseq",
       key: "bseq",
       width: "10%",
     },
@@ -62,22 +62,22 @@ const FileBoard = () => {
     },
     {
       title: "제목",
-      dataIndex: "bTitle",
-      key: "bTitle",
+      dataIndex: "btitle",
+      key: "btitle",
       width: "40%",
       render: (text, record) => (
-        <Link to={`/board/detail?bSeq=${record.bSeq}`}>{text}</Link>
+        <Link to={`/board/detail?bSeq=${record.bseq}`}>{text}</Link>
       ),
     },
     {
       title: "조회수",
-      dataIndex: "bCount",
-      key: "bCount",
+      dataIndex: "bcount",
+      key: "bcount",
     },
     {
       title: "작성일",
-      dataIndex: "CDT",
-      key: "CDT",
+      dataIndex: "cdt",
+      key: "cdt",
     },
   ];
 

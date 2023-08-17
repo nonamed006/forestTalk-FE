@@ -80,10 +80,10 @@ const handleButtonClick = () => {
 
           return {
             key: index,
-            bSeq: boardItem.bSeq,
-            uSeq: boardItem.uSeq,
-            bTitle: boardItem.bTitle,
-            bCount: boardItem.bCount,
+            bSeq: boardItem.bseq,
+            uSeq: boardItem.useq,
+            bTitle: boardItem.btitle,
+            bCount: boardItem.bcount,
             CDT: boardItem.cdt  ,
           };
 
