@@ -87,16 +87,16 @@ const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
 
-  //글 작성하기
-const navigate = useNavigate();
 
 // 버튼 클릭 시 '/registboard' 페이지로 이동
+const navigate = useNavigate();
 const handleButtonClick = () => {
   console.log("button clicked!");
   navigate('/board/registboard'); 
 
 };
 
+// 전체 리스트 불러오기
   useEffect(() => {
     fetch(`${PORT}/userBoard/selectAllBoard`, {
       method: "get",

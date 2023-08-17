@@ -44,8 +44,8 @@ export default function RegistBoard() {
                 "Content-Type": "application/json", // 전송할 데이터의 형식을 지정
             },
             body: JSON.stringify({
-                bTitle: values.bTitle,
-                bContents: values.bContents,
+                btitle: values.bTitle,
+                bcontents: values.bContents,
             }), // values 객체를 JSON 문자열로 변환하여 전송
         })
             .then((res) => res.json())
