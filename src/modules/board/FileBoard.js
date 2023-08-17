@@ -27,7 +27,7 @@ const FileBoard = () => {
 
   const handleButtonClick = () => {
     console.log("button clicked!");
-    navigate("/board/registboard");
+    navigate("/board/registfileboard");
   };
 
   const handleChange = (value) => {
@@ -41,7 +41,7 @@ const FileBoard = () => {
       .then((response) => response.json())
       .then((data) => {
         data.data.map((item) => {
-          item.key = item.bseq;
+          item.key = item.bSeq;
           fileItems.push(item);
           setItems(fileItems);
         });
@@ -51,33 +51,33 @@ const FileBoard = () => {
   const columns = [
     {
       title: "순번",
-      dataIndex: "bseq",
+      dataIndex: "bSeq",
       key: "bseq",
       width: "10%",
     },
     {
       title: "작성자",
       dataIndex: "useq",
-      key: "useq",
+      key: "uSeq",
     },
     {
       title: "제목",
-      dataIndex: "btitle",
-      key: "btitle",
+      dataIndex: "bTitle",
+      key: "bTitle",
       width: "40%",
       render: (text, record) => (
-        <Link to={`/board/detail?bSeq=${record.bseq}`}>{text}</Link>
+        <Link to={`/board/detail?bSeq=${record.bSeq}`}>{text}</Link>
       ),
     },
     {
       title: "조회수",
-      dataIndex: "bcount",
-      key: "bcount",
+      dataIndex: "bCount",
+      key: "bCount",
     },
     {
       title: "작성일",
-      dataIndex: "cdt",
-      key: "cdt",
+      dataIndex: "CDT",
+      key: "CDT",
     },
   ];
 
