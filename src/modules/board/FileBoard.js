@@ -66,7 +66,7 @@ const FileBoard = () => {
       key: "btitle",
       width: "40%",
       render: (text, record) => (
-        <Link to={`/board/detail/${record.bseq}`}>{text}</Link>
+        <Link to={`/board/detail?bSeq=${record.bseq}`}>{text}</Link>
       ),
     },
     {
