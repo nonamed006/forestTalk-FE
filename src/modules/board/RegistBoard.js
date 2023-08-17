@@ -2,7 +2,7 @@
 import { Button, Form, Input, InputNumber } from 'antd';
 // import { useNavigate } from 'react-router-dom';
 import { PORT } from '../../set';
-import './UserBoard.css';
+import './Board.css';
 import '../../App';
 
 const layout = {

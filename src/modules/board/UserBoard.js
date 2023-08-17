@@ -3,7 +3,7 @@ import { Space, Table, Tag, Input, Select, Button } from 'antd';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 import { PORT } from '../../set';
-import './UserBoard.css';
+import './Board.css';
 import '../../App';
 
 /*
