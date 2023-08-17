@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button, DatePicker, Form, Input, Select, Checkbox } from "antd";
+import { PORT } from "../../set";
+
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -34,7 +36,27 @@ const tailFormItemLayout = {
 const SignupForm = () => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    fetch(`${PORT}/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(values);
+        console.log("Server response:", data);
+        if (data.resultMsg === "certified") {
+          alert("회원가입 성공");
+        } else {
+          alert("회원가입 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("에러가 발생했습니다.");
+      });
   };
   const [autoCompleteResult, setAutoCompleteResult] = useState([]);
   const onWebsiteChange = (value) => {
@@ -66,7 +88,7 @@ const SignupForm = () => {
       scrollToFirstError
     >
       <Form.Item
-        name="email"
+        name="uemail"
         label="이메일"
         rules={[
           {
@@ -81,9 +103,21 @@ const SignupForm = () => {
       >
         <Input />
       </Form.Item>
+      <Form.Item
+        name="uid"
+        label="아이디"
+        rules={[
+          {
+            required: true,
+            message: "아이디를 입력해 주세요!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
       <Form.Item
-        name="username"
+        name="uname"
         label="이름"
         tooltip="이름을 작성해 주세요!"
         rules={[
@@ -98,14 +132,14 @@ const SignupForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="birthday"
+        name="ubirth"
         label="생일"
         rules={[{ required: true, message: "생일을 입력해 주세요!" }]}
       >
         <DatePicker />
       </Form.Item>
       <Form.Item
-        name="password"
+        name="upw"
         label="비밀번호"
         rules={[
           {
@@ -130,7 +164,7 @@ const SignupForm = () => {
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (!value || getFieldValue("password") === value) {
+              if (!value || getFieldValue("upw") === value) {
                 return Promise.resolve();
               }
               return Promise.reject(
@@ -144,7 +178,7 @@ const SignupForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="nickname"
+        name="unick"
         label="닉네임"
         tooltip="상대방이 어떻게 불러줬으면 하나요?"
         rules={[
