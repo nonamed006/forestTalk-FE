@@ -29,19 +29,19 @@ const FileBoardDetail = ({hasFile}) => {
   return (
     <div>
       <Card>
-        <Title level={2}>{item.bTitle}</Title>
-        <Text className="author">작성자: {item.uSeq}</Text>
+        <Title level={2}>{item.btitle}</Title>
+        <Text className="author">작성자: {item.useq}</Text>
         <Divider />
         <div className="info-container">
           <div className="left-info">
             <Text>작성날짜: {item.cdt}</Text>
           </div>
           <div className="right-info">
-            <Text>조회수: {item.bCount}</Text>
+            <Text>조회수: {item.bcount}</Text>
           </div>
         </div>
         <Divider />
-        <Text>{item.bContents}</Text>
+        <Text>{item.bcontents}</Text>
         {hasFile && (
           <div>
             {/* 파일이 있을 경우 파일 아이콘 등 표시 */}
