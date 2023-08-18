@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { PORT } from "../../set";
-import { Card, Divider, Typography } from "antd";
+import { Card, Divider, Typography, Button } from "antd"; // Import Button component
 import "./FileBoardDetail.css";
 
-const FileBoardDetail = ({hasFile}) => {
-  // console.log("파일 디테일 보드 인");
-  // console.log("어디서 에러가 나는거지");
+const FileBoardDetail = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const bSeq = params.get("bSeq");
@@ -14,17 +12,18 @@ const FileBoardDetail = ({hasFile}) => {
   const [item, setItem] = useState({});
   const { Title, Text } = Typography;
 
-  useEffect(() => { 
-    fetch(`${PORT}/board/fileBoardDetail?bSeq=${bSeq}`, {
-      method: "get",
-    })
+  useEffect(() => {
+    fetch(`${PORT}/board/fileBoardDetail?bSeq=${bSeq}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         const boardData = data.voData;
         setItem(boardData);
       });
   }, [bSeq]);
+
+  const handleDownload = () => {
+    window.location.href = `${PORT}/board/downloadFile?bSeq=${bSeq}`;
+  };
 
   return (
     <div>
@@ -38,15 +37,14 @@ const FileBoardDetail = ({hasFile}) => {
           </div>
           <div className="right-info">
             <Text>조회수: {item.bcount}</Text>
-          </div>
+          </div>  
         </div>
         <Divider />
         <Text>{item.bcontents}</Text>
-        {hasFile && (
-          <div>
-            {/* 파일이 있을 경우 파일 아이콘 등 표시 */}
-            <Text>파일 첨부: 파일명.pdf</Text>
-          </div>
+        {item.bfileOriginNm && (
+          <Button type="primary" onClick={handleDownload}>
+            파일 다운로드
+          </Button>
         )}
       </Card>
     </div>
