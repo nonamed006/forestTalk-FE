@@ -1,80 +1,57 @@
-import { Button, Form, Input, Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import React from "react";
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-
-const validateMessages = {
-  required: "${label}는 필수입니다!",
-};
+import React, { useState } from 'react';
+import { Button, Form, Input } from 'antd';
+import { PORT } from '../../set';
 
 const RegistFileBoard = () => {
-  const [file, setFile] = React.useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [formData, setFormData] = useState({
+    bTitle: '',
+    bContents: '',
+  });
 
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-    console.log("Selected file:", file);
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleUpload = () => {
+    const data = new FormData();
+    data.append('bTitle', formData.bTitle);
+    data.append('bContents', formData.bContents);
+    data.append('bFile', selectedFile);
+
+    fetch(`${PORT}/board/registFileBoard`, {
+      method: 'POST',
+      body: data,
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.result == 'SUCCESS'){
+            alert('게시글이 등록되었습니다.');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
     <div>
-      <h1>회원 게시물 등록</h1>
+      {/* Form inputs */}
+      <Input name="bTitle" onChange={handleInputChange} />
+      <Input.TextArea name="bContents" onChange={handleInputChange} />
+      <input type="file" onChange={handleFileChange} />
 
-      <Form
-        {...layout}
-        name="nest-messages"
-        style={{
-          maxWidth: 600,
-        }}
-        validateMessages={validateMessages}
-      >
-        <Form.Item
-          name="bTitle"
-          label="제목"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item name="bContents" label="내용">
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item
-          name="bFile"
-          label="파일 업로드"
-          valuePropName="fileList"
-          getValueFromEvent={(e) => {
-            if (Array.isArray(e)) {
-              setFile(e[0]); // 업로드된 파일을 상태로 설정
-            }
-            return e && e.fileList;
-          }}
-        >
-          <Upload name="file" fileList={file ? [file] : []}>
-            <Button icon={<UploadOutlined />}>파일 선택</Button>
-          </Upload>
-        </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            ...layout.wrapperCol,
-            offset: 8,
-          }}
-        >
-          <Button type="primary" htmlType="submit">
-            작성
-          </Button>
-        </Form.Item>
-      </Form>
+      {/* Upload button */}
+      <Button type="primary" onClick={handleUpload}>작성</Button>
     </div>
   );
 };
